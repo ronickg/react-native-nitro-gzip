@@ -1,0 +1,10 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "react-native-nitro-gzip": ["../src"]
+    }
+  },
+  "include": ["index.js", "src"],
+  "exclude": ["node_modules"]
+}
