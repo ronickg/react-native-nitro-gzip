@@ -32,6 +32,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "lint-ci": "eslint \"**/*.{js,ts,tsx}\" -f @jamesacarr/github-actions",
     "typescript": "tsc",
+    "release": "release-it",
     "specs": "tsc && nitro-codegen --logLevel=\"debug\""
   },
   "workspaces": [
