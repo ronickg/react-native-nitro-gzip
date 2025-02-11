@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {gzip} from 'react-native-nitro-gzip';
+import Gzip from 'react-native-nitro-gzip';
 import '@bacons/text-decoder/install';
 
 export default function App() {
@@ -37,7 +37,7 @@ export default function App() {
 
     console.log('Original size:', testBuffer.byteLength);
 
-    const compressed = await gzip.deflate(testBuffer, {
+    const compressed = await Gzip.deflate(testBuffer, {
       level: 6, // Default compression level
       chunkSize: 8192, // Default chunk size
     });
@@ -48,7 +48,7 @@ export default function App() {
       (compressed.length / testBuffer.byteLength).toFixed(2),
     );
 
-    const decompressed = await gzip.inflate(compressed);
+    const decompressed = await Gzip.inflate(compressed);
     const resultString = new TextDecoder().decode(decompressed);
 
     console.log('Decompression successful:', resultString === testString);
@@ -67,13 +67,13 @@ export default function App() {
 
     // Test each compression level
     for (const level of [1, 3, 6, 9] as const) {
-      const compressed = await gzip.deflate(testBuffer, {level});
+      const compressed = await Gzip.deflate(testBuffer, {level});
       results[level] = compressed.length;
 
       console.log(`Level ${level} compressed size:`, compressed.length);
 
       // Verify decompression works
-      const decompressed = await gzip.inflate(compressed);
+      const decompressed = await Gzip.inflate(compressed);
       const verified = new TextDecoder().decode(decompressed) === testData;
       console.log(`Level ${level} verification:`, verified ? '✅' : '❌');
     }
@@ -89,12 +89,12 @@ export default function App() {
     for (const chunkSize of chunkSizes) {
       console.log(`Testing chunk size: ${chunkSize}`);
 
-      const compressed = await gzip.deflate(largeBuffer, {
+      const compressed = await Gzip.deflate(largeBuffer, {
         chunkSize,
         level: 6,
       });
 
-      const decompressed = await gzip.inflate(compressed, {chunkSize});
+      const decompressed = await Gzip.inflate(compressed, {chunkSize});
       const verified = new TextDecoder().decode(decompressed) === largeString;
 
       console.log(
@@ -109,7 +109,7 @@ export default function App() {
 
     try {
       // Test invalid base64 input
-      await gzip.inflate('not-valid-base64');
+      await Gzip.inflate('not-valid-base64');
       console.log('❌ Should have thrown on invalid base64');
     } catch (error) {
       console.log('✅ Properly caught invalid base64:', error.message);
@@ -117,7 +117,7 @@ export default function App() {
 
     try {
       // Test invalid compression level
-      await gzip.deflate(new ArrayBuffer(10), {
+      await Gzip.deflate(new ArrayBuffer(10), {
         level: 9, // Invalid level
       });
     } catch (error) {

@@ -1,17 +1,17 @@
 # react-native-nitro-gzip
 
-React Native Gzip compression/decompression module using Nitro hybrid architecture.
+React Native Gzip compression/decompression library built with Nitro Modules.
 
 ## Installation
 
 ```bash
-yarn add react-native-nitro-gzip react-native-nitro-modules
+yarn add react-native-nitro-modules react-native-nitro-gzip
 ```
 
 ## Usage
 
 ```typescript
-import { Gzip } from 'react-native-nitro-gzip'
+import Gzip from 'react-native-nitro-gzip';
 
 // Compress data
 const input = new TextEncoder().encode('Hello World').buffer
@@ -22,8 +22,6 @@ const decompressed = await Gzip.inflate(compressed)
 const text = new TextDecoder().decode(decompressed)
 ```
 
-## Options
-
 ### GzipOptions
 
 ```typescript
@@ -33,32 +31,8 @@ interface GzipOptions {
 }
 ```
 
-## Platform Notes
+## Info
 
 - **chunkSize** option is only supported on Android
-- Compression level support is consistent across platforms
 - iOS uses native SwiftGzip implementation
 - Android uses Java's GZIPInputStream/GZIPOutputStream
-
-```bash
-yarn add react-native-nitro-modules
-```
-
-## Error Handling
-
-Both `inflate` and `deflate` may throw errors for:
-
-- Invalid input format
-- Corrupted compressed data
-- Memory allocation issues
-- Platform-specific compression failures
-
-Wrap operations in try/catch blocks:
-
-```typescript
-try {
-  const result = await Gzip.inflate(data)
-} catch (error) {
-  console.error('Decompression failed:', error)
-}
-```

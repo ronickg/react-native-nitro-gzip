@@ -3,4 +3,4 @@ import type { Gzip } from './specs/Gzip.nitro'
 
 export * from './specs/Gzip.nitro'
 
-export const gzip = NitroModules.createHybridObject<Gzip>('Gzip')
+export default NitroModules.createHybridObject<Gzip>('Gzip')
